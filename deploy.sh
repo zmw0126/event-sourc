@@ -2,7 +2,7 @@
 
 set -e
 
-mvn package
+mvn package -Dmaven.test.skip=true
 
 docker push 10.11.0.8:5000/kbastani-hystrix-dashboard       
 docker push 10.11.0.8:5000/kbastani-shopping-cart-service   
