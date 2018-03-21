@@ -106,7 +106,7 @@
                     <repository>${docker.image.prefix}/kbastani-${project.artifactId}</repository>
                     <tag>latest</tag>
                     <buildArgs>
-                        <JAR_FILE>${project.build.directory}/target/${project.build.finalName}.jar</JAR_FILE>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
                 </configuration>
             </plugin>
