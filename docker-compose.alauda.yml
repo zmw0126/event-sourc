@@ -3,7 +3,7 @@ config-service:
   environment:
    - SPRING_PROFILES_ACTIVE=docker
   ports:
-   - nginx-10-11-0-7:8888:8888:tcp
+   - nginx-10-11-0-7:8888:8888/tcp
   net: flannel
   size: L
   alauda_lb: ALB
@@ -13,7 +13,7 @@ hystrix-dashboard:
   environment:
    - SPRING_PROFILES_ACTIVE=docker
   ports:
-   - nginx-10-11-0-7:6161:6161:tcp
+   - nginx-10-11-0-7:6161:6161/tcp
   net: flannel
   size: L
   alauda_lb: ALB
@@ -21,10 +21,10 @@ hystrix-dashboard:
 mysql:
   image: mysql:5.7
   ports:
-   - nginx-10-11-0-7:3306:3306:tcp
+   - nginx-10-11-0-7:3306:3306/tcp
   environment:
-   - mysql_ROOT_PASSWORD=dbpass
-   - mysql_DATABASE=dev
+   - MYSQL_ROOT_PASSWORD=dbpass
+   - MYSQL_DATABASE=dev
   net: flannel
   size: L
   alauda_lb: ALB
@@ -32,7 +32,7 @@ mysql:
 neo4j:
   image: neo4j:2.3
   ports:
-   - nginx-10-11-0-7:7474:7474:tcp
+   - nginx-10-11-0-7:7474:7474/tcp
   environment:
    - neo4j_AUTH=none
   net: flannel
@@ -42,7 +42,7 @@ neo4j:
 mongo:
   image: mongo:3.3
   ports:
-   - nginx-10-11-0-7:27017:27017:tcp
+   - nginx-10-11-0-7:27017:27017/tcp
   net: flannel
   size: L
   alauda_lb: ALB
@@ -50,7 +50,7 @@ mongo:
 redis:
   image: redis:3.0
   ports:
-   - nginx-10-11-0-7:6379:6379:tcp
+   - nginx-10-11-0-7:6379:6379/tcp
   net: flannel
   size: L
   alauda_lb: ALB
@@ -58,7 +58,7 @@ redis:
 user-service:
   image: 10.11.0.8:5000/kbastani-user-service
   ports:
-   - nginx-10-11-0-7:8181:8181:tcp
+   - nginx-10-11-0-7:8181:8181/tcp
   links:
    - mysql:mysql
    - discovery-service:discovery-service
@@ -72,7 +72,7 @@ user-service:
 discovery-service:
   image: 10.11.0.8:5000/kbastani-discovery-service
   ports:
-   - nginx-10-11-0-7:8761:8761:tcp
+   - nginx-10-11-0-7:8761:8761/tcp
   environment:
    - SPRING_PROFILES_ACTIVE=docker
   net: flannel
@@ -82,7 +82,7 @@ discovery-service:
 edge-service:
   image: 10.11.0.8:5000/kbastani-edge-service
   ports:
-   - nginx-10-11-0-7:9999:9999:tcp
+   - nginx-10-11-0-7:9999:9999/tcp
   links:
    - user-service:user-service
    - discovery-service:discovery-service
@@ -96,7 +96,7 @@ edge-service:
 account-service:
   image: 10.11.0.8:5000/kbastani-account-service
   ports:
-   - nginx-10-11-0-7:18001:8080:tcp
+   - nginx-10-11-0-7:18001:8080/tcp
   links:
    - user-service:user-service
    - discovery-service:discovery-service
@@ -111,7 +111,7 @@ account-service:
 inventory-service:
   image: 10.11.0.8:5000/kbastani-inventory-service
   ports:
-   - nginx-10-11-0-7:18002:8080:tcp
+   - nginx-10-11-0-7:18002:8080/tcp
   links:
    - neo4j:neo4j
    - discovery-service:discovery-service
@@ -125,7 +125,7 @@ inventory-service:
 order-service:
   image: 10.11.0.8:5000/kbastani-order-service
   ports:
-   - nginx-10-11-0-7:18003:8080:tcp
+   - nginx-10-11-0-7:18003:8080/tcp
   links:
    - mongo:mongo
    - discovery-service:discovery-service
@@ -140,7 +140,7 @@ order-service:
 catalog-service:
   image: 10.11.0.8:5000/kbastani-catalog-service
   ports:
-   - nginx-10-11-0-7:18004:8080:tcp
+   - nginx-10-11-0-7:18004:8080/tcp
   links:
    - redis:redis
    - mysql:mysql
@@ -155,7 +155,7 @@ catalog-service:
 shopping-cart-service:
   image: 10.11.0.8:5000/kbastani-shopping-cart-service
   ports:
-   - nginx-10-11-0-7:18005:8080:tcp
+   - nginx-10-11-0-7:18005:8080/tcp
   links:
    - mysql:mysql
    - discovery-service:discovery-service
@@ -170,7 +170,7 @@ shopping-cart-service:
 online-store-web:
   image: 10.11.0.8:5000/kbastani-online-store-web
   ports:
-   - nginx-10-11-0-7:8787:8787:tcp
+   - nginx-10-11-0-7:8787:8787/tcp
   links:
    - discovery-service:discovery-service
    - config-service:config-service
