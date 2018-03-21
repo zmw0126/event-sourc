@@ -1,125 +1,183 @@
 config-service:
-  image: kbastani/config-service
+  image: 10.11.0.8:5000/kbastani-config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
   ports:
-   - 8888:8888
+   - nginx-10-11-0-7:8888:8888:tcp
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
 hystrix-dashboard:
-  image: kbastani/hystrix-dashboard
+  image: 10.11.0.8:5000/kbastani-hystrix-dashboard
   environment:
    - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
   ports:
-   - 6161:6161
+   - nginx-10-11-0-7:6161:6161:tcp
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
 mysql:
   image: mysql:5.7
   ports:
-   - 3306:3306
+   - nginx-10-11-0-7:3306:3306:tcp
   environment:
-   - MYSQL_ROOT_PASSWORD=dbpass
-   - MYSQL_DATABASE=dev
+   - mysql_ROOT_PASSWORD=dbpass
+   - mysql_DATABASE=dev
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
 neo4j:
   image: neo4j:2.3
   ports:
-   - 7474:7474
+   - nginx-10-11-0-7:7474:7474:tcp
   environment:
-   - NEO4J_AUTH=none
+   - neo4j_AUTH=none
+  net: flannel
+  size: L
+  alauda_lb: ALB
+  
 mongo:
   image: mongo:3.3
   ports:
-   - 27017:27017
+   - nginx-10-11-0-7:27017:27017:tcp
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
 redis:
   image: redis:3.0
   ports:
-   - 6379:6379
+   - nginx-10-11-0-7:6379:6379:tcp
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
 user-service:
-  image: kbastani/user-service
+  image: 10.11.0.8:5000/kbastani-user-service
   ports:
-   - 8181:8181
+   - nginx-10-11-0-7:8181:8181:tcp
   links:
-   - mysql
-   - discovery-service
-   - config-service
+   - mysql:mysql
+   - discovery-service:discovery-service
+   - config-service:config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
 discovery-service:
-  image: kbastani/discovery-service
+  image: 10.11.0.8:5000/kbastani-discovery-service
   ports:
-   - 8761:8761
+   - nginx-10-11-0-7:8761:8761:tcp
   environment:
    - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
 edge-service:
-  image: kbastani/edge-service
+  image: 10.11.0.8:5000/kbastani-edge-service
   ports:
-   - 9999:9999
+   - nginx-10-11-0-7:9999:9999:tcp
   links:
-   - user-service
-   - discovery-service
-   - config-service
+   - user-service:user-service
+   - discovery-service:discovery-service
+   - config-service:config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
 account-service:
-  image: kbastani/account-service
-  links:
-   - user-service
-   - discovery-service
-   - config-service
-   - mysql
-  environment:
-   - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
-inventory-service:
-  image: kbastani/inventory-service
-  links:
-   - neo4j
-   - discovery-service
-   - config-service
-  environment:
-   - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
-order-service:
-  image: kbastani/order-service
-  links:
-   - mongo
-   - discovery-service
-   - config-service
-   - user-service
-  environment:
-   - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
-catalog-service:
-  image: kbastani/catalog-service
-  links:
-   - redis
-   - mysql
-   - discovery-service
-   - config-service
-  environment:
-   - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
-shopping-cart-service:
-  image: kbastani/shopping-cart-service
-  links:
-   - mysql
-   - discovery-service
-   - config-service
-   - user-service
-  environment:
-   - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
-online-store-web:
-  image: kbastani/online-store-web
+  image: 10.11.0.8:5000/kbastani-account-service
   ports:
-   - 8787:8787
+   - nginx-10-11-0-7:18001:8080:tcp
   links:
-   - discovery-service
-   - config-service
-   - user-service
-   - edge-service
+   - user-service:user-service
+   - discovery-service:discovery-service
+   - config-service:config-service
+   - mysql:mysql
   environment:
    - SPRING_PROFILES_ACTIVE=docker
-   - DOCKER_IP=$DOCKER_IP
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+inventory-service:
+  image: 10.11.0.8:5000/kbastani-inventory-service
+  ports:
+   - nginx-10-11-0-7:18002:8080:tcp
+  links:
+   - neo4j:neo4j
+   - discovery-service:discovery-service
+   - config-service:config-service
+  environment:
+   - SPRING_PROFILES_ACTIVE=docker
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+order-service:
+  image: 10.11.0.8:5000/kbastani-order-service
+  ports:
+   - nginx-10-11-0-7:18003:8080:tcp
+  links:
+   - mongo:mongo
+   - discovery-service:discovery-service
+   - config-service:config-service
+   - user-service:user-service
+  environment:
+   - SPRING_PROFILES_ACTIVE=docker
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+catalog-service:
+  image: 10.11.0.8:5000/kbastani-catalog-service
+  ports:
+   - nginx-10-11-0-7:18004:8080:tcp
+  links:
+   - redis:redis
+   - mysql:mysql
+   - discovery-service:discovery-service
+   - config-service:config-service
+  environment:
+   - SPRING_PROFILES_ACTIVE=docker
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+shopping-cart-service:
+  image: 10.11.0.8:5000/kbastani-shopping-cart-service
+  ports:
+   - nginx-10-11-0-7:18005:8080:tcp
+  links:
+   - mysql:mysql
+   - discovery-service:discovery-service
+   - config-service:config-service
+   - user-service:user-service
+  environment:
+   - SPRING_PROFILES_ACTIVE=docker
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
+online-store-web:
+  image: 10.11.0.8:5000/kbastani-online-store-web
+  ports:
+   - nginx-10-11-0-7:8787:8787:tcp
+  links:
+   - discovery-service:discovery-service
+   - config-service:config-service
+   - user-service:user-service
+   - edge-service:edge-service
+  environment:
+   - SPRING_PROFILES_ACTIVE=docker
+  net: flannel
+  size: L
+  alauda_lb: ALB
