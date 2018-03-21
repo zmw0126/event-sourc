@@ -9,7 +9,7 @@ spring:
   jackson:
     date-format: "YYYY-MM-dd"
     serialization:
-      write_dates_as_timestamps: true
+      WRITE_DATES_AS_TIMESTAMPS: true
 security:
   oauth2:
     resource:
@@ -37,11 +37,11 @@ spring:
   jackson:
     date-format: "YYYY-MM-dd"
     serialization:
-      write_dates_as_timestamps: true
+      WRITE_DATES_AS_TIMESTAMPS: true
 security:
   oauth2:
     resource:
-      userInfoUri: http://${DOCKER_IP:192.168.99.100}:8181/uaa/user
+      userInfoUri: http://user-service:8181/uaa/user
     client:
       client-id: acme
 eureka:

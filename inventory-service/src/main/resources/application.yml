@@ -17,8 +17,8 @@ eureka:
 spring:
   profiles: docker
   neo4j:
-    host: ${SPRING_NEO4J_HOST:neo4j}
-    port: ${SPRING_NEO4J_PORT:7474}
+    host: neo4j
+    port: 7474
 eureka:
   instance:
     prefer-ip-address: true
