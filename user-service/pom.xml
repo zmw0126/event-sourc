@@ -103,7 +103,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    <repository>${docker.image.prefix}/kbastani-${project.artifactId}</repository>
                     <tag>latest</tag>
                     <buildArgs>
                         <JAR_FILE>${project.build.directory}/target/${project.build.finalName}.jar</JAR_FILE>
