@@ -4,7 +4,7 @@ spring:
 server:
   port: 0
 ---
-debug: true
+
 spring:
   profiles: docker
   cloud:

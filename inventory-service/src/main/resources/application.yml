@@ -15,11 +15,13 @@ eureka:
     serviceUrl:
       defaultZone: http://192.168.99.100:8761/eureka/
 ---
-debug: true
+
 spring:
   profiles: docker
   application:
     name: inventory-service
+  data.neo4j:
+    uri: http://neo4j:7474
   neo4j:
     host: neo4j
     port: 7474
