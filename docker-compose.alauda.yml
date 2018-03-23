@@ -2,6 +2,7 @@ config-service:
   image: 10.11.0.8:5000/kbastani-config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   ports:
    - nginx-10-11-0-7:8888:8888/tcp
   net: flannel
@@ -12,6 +13,7 @@ hystrix-dashboard:
   image: 10.11.0.8:5000/kbastani-hystrix-dashboard
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   ports:
    - nginx-10-11-0-7:6161:6161/tcp
   net: flannel
@@ -65,6 +67,7 @@ user-service:
    - config-service:config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   net: flannel
   size: L
   alauda_lb: ALB
@@ -75,6 +78,7 @@ discovery-service:
    - nginx-10-11-0-7:8761:8761/tcp
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   net: flannel
   size: L
   alauda_lb: ALB
@@ -89,6 +93,7 @@ edge-service:
    - config-service:config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   net: flannel
   size: L
   alauda_lb: ALB
@@ -104,6 +109,7 @@ account-service:
    - mysql:mysql
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   net: flannel
   size: L
   alauda_lb: ALB
@@ -118,6 +124,7 @@ inventory-service:
    - config-service:config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   net: flannel
   size: L
   alauda_lb: ALB
@@ -133,6 +140,7 @@ order-service:
    - user-service:user-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   net: flannel
   size: L
   alauda_lb: ALB
@@ -148,6 +156,7 @@ catalog-service:
    - config-service:config-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   net: flannel
   size: L
   alauda_lb: ALB
@@ -163,6 +172,7 @@ shopping-cart-service:
    - user-service:user-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   net: flannel
   size: L
   alauda_lb: ALB
@@ -178,6 +188,7 @@ online-store-web:
    - edge-service:edge-service
   environment:
    - SPRING_PROFILES_ACTIVE=docker
+   - ALB_IP=10.11.0.7
   net: flannel
   size: L
   alauda_lb: ALB

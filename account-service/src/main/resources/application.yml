@@ -35,7 +35,7 @@ spring:
 security:
   oauth2:
     resource:
-      userInfoUri: http://user-service:8181/uaa/user
+      userInfoUri: http://${ALB_IP}:8181/uaa/user
     client:
       client-id: acme
 eureka:

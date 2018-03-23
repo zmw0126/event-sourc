@@ -48,15 +48,15 @@ zuul:
       url: http://edge-service:9999
     auth-service:
       path: /user/**
-      url: http://user-service:8181/uaa/user
+      url: http://${ALB_IP}:8181/uaa/user
 security:
   enable-csrf: false
   oauth2:
     resource:
-      userInfoUri: http://user-service:8181/uaa/user
+      userInfoUri: http://${ALB_IP}:8181/uaa/user
     client:
-      accessTokenUri: http://user-service:8181/uaa/oauth/token
-      userAuthorizationUri: http://user-service:8181/uaa/oauth/authorize
+      accessTokenUri: http://${ALB_IP}:8181/uaa/oauth/token
+      userAuthorizationUri: http://${ALB_IP}:8181/uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
 eureka:
