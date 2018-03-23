@@ -1,7 +1,7 @@
 config-service:
   image: 10.11.0.8:5000/kbastani-config-service
   environment:
-   - SPRING_PROFILES_ACTIVE=native,docker
+   - SPRING_PROFILES_ACTIVE=docker
    - ALB_IP=10.11.0.7
   ports:
    - nginx-10-11-0-7:8888:8888/tcp

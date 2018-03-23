@@ -21,5 +21,7 @@ spring:
   cloud:
     config:
       server:
-        native:
-          search-locations: file:/app/config
+        git:
+          uri: http://10.11.0.5:9988/root/config-server
+          username: root
+          password: alauda1234
