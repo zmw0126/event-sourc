@@ -1,6 +1,6 @@
 spring.profiles.active: development
 ---
-debug: true
+
 spring:
   profiles: development
   neo4j:
@@ -15,6 +15,7 @@ eureka:
     serviceUrl:
       defaultZone: http://192.168.99.100:8761/eureka/
 ---
+debug: true
 spring:
   profiles: docker
   application:
