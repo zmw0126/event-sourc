@@ -2,6 +2,8 @@
 
 set -e
 
+mvn clean
+
 mvn package -Dmaven.test.skip=true
 
 docker push 10.11.0.8:5000/kbastani-hystrix-dashboard       
