@@ -1,5 +1,6 @@
 spring.profiles.active: development
 ---
+debug: true
 spring:
   profiles: development
   neo4j:
@@ -16,6 +17,8 @@ eureka:
 ---
 spring:
   profiles: docker
+  application:
+    name: inventory-service
   neo4j:
     host: neo4j
     port: 7474
