@@ -6,7 +6,8 @@ import java.io.Serializable;
 
 public class OrderEvent extends BaseEntity implements Serializable {
 
-    private String id;
+    private static final long serialVersionUID = 2488852456569145464L;
+	private String id;
     private OrderEventType type;
     private String orderId;
 

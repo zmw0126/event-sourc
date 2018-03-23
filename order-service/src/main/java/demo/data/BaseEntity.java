@@ -3,7 +3,8 @@ package demo.data;
 import java.io.Serializable;
 
 public class BaseEntity implements Serializable {
-    private Long createdAt;
+    private static final long serialVersionUID = 1331832153538538964L;
+	private Long createdAt;
     private Long lastModified;
 
     public BaseEntity() {

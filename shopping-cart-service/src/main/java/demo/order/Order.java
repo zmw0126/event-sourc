@@ -17,7 +17,8 @@ import java.util.List;
  */
 public class Order extends BaseEntity implements Serializable {
 
-    @JsonProperty(value = "orderId")
+    private static final long serialVersionUID = -6649154457396961875L;
+	@JsonProperty(value = "orderId")
     private String orderId;
     private String accountNumber;
     private OrderStatus orderStatus;

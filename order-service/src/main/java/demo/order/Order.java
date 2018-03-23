@@ -19,7 +19,8 @@ import java.util.List;
 @Document
 public class Order extends BaseEntity {
 
-    @Id
+    private static final long serialVersionUID = -5209016529175612681L;
+	@Id
     private ObjectId orderId;
     private String accountNumber;
     @Transient

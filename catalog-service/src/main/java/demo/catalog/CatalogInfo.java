@@ -8,7 +8,8 @@ import java.util.UUID;
 @Entity
 public class CatalogInfo implements Serializable {
 
-    @Id
+    private static final long serialVersionUID = 4174946897835480166L;
+	@Id
     private String id;
     private Long catalogId;
     private Boolean active;

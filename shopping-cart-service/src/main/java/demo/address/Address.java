@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class Address implements Serializable {
 
-    private String street1, street2, state, city, country;
+    private static final long serialVersionUID = 5486800607707653086L;
+	private String street1, street2, state, city, country;
     private Integer zipCode;
     private AddressType addressType;
 

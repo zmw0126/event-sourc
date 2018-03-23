@@ -3,7 +3,8 @@ package demo.user;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private Long id;
+    private static final long serialVersionUID = 4314039906034981759L;
+	private Long id;
     private String username;
     private String firstName;
     private String lastName;

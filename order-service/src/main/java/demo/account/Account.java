@@ -9,7 +9,8 @@ import java.util.Set;
 
 public class Account extends BaseEntity {
 
-    private Long id;
+    private static final long serialVersionUID = 1922986383754575666L;
+	private Long id;
     private String userId;
     private String accountNumber;
     private Boolean defaultAccount;

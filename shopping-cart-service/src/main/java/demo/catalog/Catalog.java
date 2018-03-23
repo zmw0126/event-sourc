@@ -8,7 +8,9 @@ import java.util.Set;
 
 public class Catalog implements Serializable {
 
-    private Long id;
+    private static final long serialVersionUID = -1500392072123064796L;
+
+	private Long id;
 
     private Set<Product> products = new HashSet<>();
 

@@ -13,7 +13,8 @@ import java.io.Serializable;
  */
 public class Customer extends BaseEntity implements Serializable {
 
-    private Long id;
+    private static final long serialVersionUID = 4801508116215017080L;
+	private Long id;
     private String firstName;
     private String lastName;
     private String email;

@@ -14,7 +14,8 @@ import java.util.UUID;
 @Entity
 public class User implements Serializable {
 
-    @Id
+    private static final long serialVersionUID = 3166992056489797294L;
+	@Id
     private String id;
     private String firstName;
     private String lastName;

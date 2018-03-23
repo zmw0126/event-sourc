@@ -19,7 +19,8 @@ import java.util.List;
 @Document
 public class Invoice extends BaseEntity {
 
-    private String invoiceId, customerId;
+    private static final long serialVersionUID = 2309276302386970525L;
+	private String invoiceId, customerId;
     private List<Order> orders = new ArrayList<Order>();
     private Address billingAddress;
     private InvoiceStatus invoiceStatus;

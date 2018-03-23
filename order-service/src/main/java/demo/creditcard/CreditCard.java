@@ -6,7 +6,8 @@ import java.io.Serializable;
 
 public class CreditCard extends BaseEntity implements Serializable {
 
-    private Long id;
+    private static final long serialVersionUID = -7819278539454948632L;
+	private Long id;
     private String number;
 
     private CreditCardType type;
