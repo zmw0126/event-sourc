@@ -1,5 +1,5 @@
 package service;
-
+/*
 import demo.AccountApplication;
 import demo.account.Account;
 import demo.address.Address;
@@ -64,3 +64,4 @@ public class AccountApplicationTests extends TestCase {
         log.info(customerRepository.findOne(customer.getId()).toString());
     }
 }
+*/

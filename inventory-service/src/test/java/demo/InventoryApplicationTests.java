@@ -1,5 +1,5 @@
 package demo;
-
+/*
 import demo.address.Address;
 import demo.address.AddressRepository;
 import demo.catalog.Catalog;
@@ -181,3 +181,4 @@ public class InventoryApplicationTests {
         }
     }
 }
+*/
