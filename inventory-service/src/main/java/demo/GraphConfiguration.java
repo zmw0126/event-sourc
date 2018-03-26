@@ -1,30 +1,36 @@
 package demo;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import org.neo4j.ogm.session.Session;
+import org.neo4j.ogm.session.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
+
 import demo.address.AddressRepository;
 import demo.catalog.CatalogRepository;
 import demo.inventory.InventoryRepository;
 import demo.product.ProductRepository;
 import demo.shipment.ShipmentRepository;
 import demo.warehouse.WarehouseRepository;
-import org.neo4j.ogm.session.Session;
-import org.neo4j.ogm.session.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.neo4j.config.Neo4jConfiguration;
-import org.springframework.data.neo4j.server.Neo4jServer;
-import org.springframework.data.neo4j.server.RemoteServer;
-import org.springframework.util.StringUtils;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @Configuration
-class GraphConfiguration extends Neo4jConfiguration {
+
+@ComponentScan(basePackages = "demo")
+@EnableNeo4jRepositories(basePackages = "demo")
+//@EntityScan("demo")
+public class GraphConfiguration /*extends Neo4jConfiguration*/ {
 
     @Autowired
     private Neo4jProperties properties;
 
+    private Session session = null;
+
+    /*
     @Bean
     public Neo4jServer neo4jServer() {
         String uri = this.properties.getUri();
@@ -34,6 +40,15 @@ class GraphConfiguration extends Neo4jConfiguration {
             return new RemoteServer(uri, user, pw);
         }
         return new RemoteServer(uri);
+    }
+    */
+
+    @Bean
+    public org.neo4j.ogm.config.Configuration configuration() {
+        String uri = this.properties.getUri();
+        return new org.neo4j.ogm.config.Configuration.Builder()
+            .uri(uri)  //.uri("bolt://localhost")
+            .build();
     }
 
     @Bean
@@ -57,8 +72,15 @@ class GraphConfiguration extends Neo4jConfiguration {
         return new SessionFactory(packageNames);
     }
 
-    @Bean
+
+    
+    //@Bean
     public Session getSession() throws Exception {
-        return super.getSession();
+        if (session == null) {
+            session = getSessionFactory().openSession();
+        }
+        //return super.getSession();
+        return session;
     }
+    
 }

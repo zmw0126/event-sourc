@@ -1,12 +1,12 @@
 package demo.inventory;
 
-import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.neo4j.repository.GraphRepository;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 
-public interface InventoryRepository extends GraphRepository<Inventory> {
+import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.data.repository.query.Param;
+
+public interface InventoryRepository extends Neo4jRepository<Inventory, Long> {
     @Query("MATCH (product:Product),\n" +
             "\t(product)<-[:PRODUCT_TYPE]-(inventory:Inventory)\n" +
             "WHERE product.productId = {productId} AND NOT (inventory)<-[:CONTAINS_PRODUCT]-()\n" +

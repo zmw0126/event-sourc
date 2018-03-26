@@ -32,7 +32,7 @@ mysql:
   alauda_lb: ALB
 
 neo4j:
-  image: neo4j:2.3
+  image: neo4j:3.3
   ports:
    - nginx-10-11-0-7:7474:7474/tcp
   environment:

@@ -19,7 +19,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <spring-data-neo4j.version>4.0.0.RELEASE</spring-data-neo4j.version>
+        <spring-data-neo4j.version>5.0.5.RELEASE</spring-data-neo4j.version>
+
     </properties>
 
     <dependencies>
@@ -49,12 +50,17 @@
             <artifactId>spring-data-neo4j</artifactId>
             <version>${spring-data-neo4j.version}</version>
         </dependency>
+
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
+
 
     <build>
         <plugins>
