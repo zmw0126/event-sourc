@@ -3,7 +3,7 @@ package demo.cart;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import demo.catalog.Catalog;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import reactor.core.publisher.Flux;
 
 import java.util.*;
@@ -17,7 +17,7 @@ import java.util.stream.Stream;
  */
 public class ShoppingCart {
 
-    private Logger log = Logger.getLogger(ShoppingCart.class);
+    //private Logger log = Logger.getLogger(ShoppingCart.class);
     private Map<String, Integer> productMap = new HashMap<>();
     private List<LineItem> lineItems = new ArrayList<>();
     private Catalog catalog;
