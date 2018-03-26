@@ -1,15 +1,18 @@
 package demo.inventory;
 
-import demo.product.Product;
-import demo.warehouse.Warehouse;
-import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+
+import demo.product.Product;
+import demo.warehouse.Warehouse;
 
 @NodeEntity
 public class Inventory {
 
-    @GraphId
+    //@GraphId
+    @Id @GeneratedValue
     private Long id;
 
     private String inventoryNumber;
