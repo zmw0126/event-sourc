@@ -75,7 +75,7 @@ public class GraphConfiguration { //extends Neo4jConfiguration {
                         .map( c -> getClass().getPackage().getName())
                         .collect(Collectors.toList())
                         .toArray(new String[packageClasses.length]);
-        return new SessionFactory(packageNames);
+        return new SessionFactory(configuration(), packageNames);
     }
 
 
