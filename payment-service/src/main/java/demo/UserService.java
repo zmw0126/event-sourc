@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private UserRepository userRepository; 
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -21,7 +21,7 @@ public class UserService {
 
         User result = null;
 
-        if (!userRepository.findById(user.getId()).isPresent()) {
+        if (!userRepository.exists(user.getId())) {
             result = this.userRepository.save(user);
         }
 
@@ -30,7 +30,7 @@ public class UserService {
 
     @Cacheable(value = "user")
     public User getUser(String id) {
-        return this.userRepository.findById(id).get();
+        return this.userRepository.findOne(id);
     }
 
     @CachePut(value = "user", key = "#id")
@@ -38,7 +38,7 @@ public class UserService {
 
         User result = null;
 
-        if (userRepository.findById(user.getId()).isPresent()) {
+        if (userRepository.exists(user.getId())) {
             result = this.userRepository.save(user);
         }
 
@@ -50,8 +50,8 @@ public class UserService {
 
         boolean deleted = false;
 
-        if (userRepository.findById(id).isPresent()) {
-            this.userRepository.deleteById(id);
+        if (userRepository.exists(id)) {
+            this.userRepository.delete(id);
             deleted = true;
         }
 

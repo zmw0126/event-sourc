@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@EnableNeo4jRepositories
+//@EnableNeo4jRepositories
 @EnableConfigurationProperties
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @EnableEurekaClient
 @EnableHystrix
 public class InventoryApplication {

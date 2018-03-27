@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
 import demo.address.AddressRepository;
 import demo.catalog.CatalogRepository;
@@ -21,34 +20,41 @@ import demo.warehouse.WarehouseRepository;
 @Configuration
 
 @ComponentScan(basePackages = "demo")
-@EnableNeo4jRepositories(basePackages = "demo")
+//@EnableNeo4jRepositories(basePackages = "demo")
 //@EntityScan("demo")
-public class GraphConfiguration /*extends Neo4jConfiguration*/ {
+public class GraphConfiguration { //extends Neo4jConfiguration {
 
     @Autowired
     private Neo4jProperties properties;
 
     private Session session = null;
 
-    /*
-    @Bean
-    public Neo4jServer neo4jServer() {
-        String uri = this.properties.getUri();
-        String pw = this.properties.getPassword();
-        String user = this.properties.getUsername();
-        if (StringUtils.hasText(pw) && StringUtils.hasText(user)) {
-            return new RemoteServer(uri, user, pw);
-        }
-        return new RemoteServer(uri);
-    }
-    */
+    
+    // @Bean
+    // public Neo4jServer neo4jServer() {
+    //     String uri = this.properties.getUri();
+    //     String pw = this.properties.getPassword();
+    //     String user = this.properties.getUsername();
+    //     if (StringUtils.hasText(pw) && StringUtils.hasText(user)) {
+    //         return new RemoteServer(uri, user, pw);
+    //     }
+    //     return new RemoteServer(uri);
+    // }
+    
 
     @Bean
     public org.neo4j.ogm.config.Configuration configuration() {
         String uri = this.properties.getUri();
-        return new org.neo4j.ogm.config.Configuration.Builder()
-            .uri(uri)  //.uri("bolt://localhost")
-            .build();
+        org.neo4j.ogm.config.Configuration config = new org.neo4j.ogm.config.Configuration();
+        config
+            .driverConfiguration()
+            .setDriverClassName
+                ("org.neo4j.ogm.drivers.http.driver.HttpDriver")
+            .setURI(uri);
+        return config;
+        // return new org.neo4j.ogm.config.Configuration.Builder()
+        //     .uri(uri)  //.uri("bolt://localhost")
+        //     .build();
     }
 
     @Bean

@@ -1,7 +1,6 @@
 package demo.product;
 
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Transient;
 
@@ -14,8 +13,8 @@ import org.neo4j.ogm.annotation.Transient;
 @NodeEntity
 public class Product {
 
-    //@GraphId
-    @Id @GeneratedValue 
+    @GraphId
+    //@Id @GeneratedValue 
     private Long id;
     private String name, productId, description;
     private Double unitPrice;

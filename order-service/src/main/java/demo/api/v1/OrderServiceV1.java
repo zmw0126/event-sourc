@@ -61,7 +61,7 @@ public class OrderServiceV1 {
 
     public Boolean addOrderEvent(OrderEvent orderEvent, Boolean validate) throws Exception {
         // Get the order for the event
-        Order order = orderRepository.findById(orderEvent.getOrderId()).get();
+        Order order = orderRepository.findOne(orderEvent.getOrderId());
 
         if (validate) {
             // Validate the account number of the event's order belongs to the user
@@ -76,7 +76,7 @@ public class OrderServiceV1 {
 
     public Order getOrder(String orderId, Boolean validate) {
         // Get the order for the event
-        Order order = orderRepository.findById(orderId).get();
+        Order order = orderRepository.findOne(orderId);
 
         if (validate) {
             try {
