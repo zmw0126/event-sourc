@@ -1,18 +1,21 @@
 package demo.api.v1;
 
-import demo.user.User;
+import java.security.Principal;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-import java.util.Optional;
+import demo.user.User;
 
 @RestController
-@RequestMapping(path = "/v1")
+@RequestMapping(path = "/v1", method = RequestMethod.GET, 
+produces = "application/json; charset=utf-8")
 public class UserControllerV1 {
 
     private UserServiceV1 userService;
@@ -22,7 +25,8 @@ public class UserControllerV1 {
         this.userService = userService;
     }
 
-    @RequestMapping(path = "/me")
+    @RequestMapping(path = "/me", method = RequestMethod.GET, 
+    produces = "application/json; charset=utf-8")
     public ResponseEntity me(Principal principal) {
         User user = null;
         if(principal != null) {
