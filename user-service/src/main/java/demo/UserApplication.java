@@ -25,7 +25,6 @@ import org.springframework.stereotype.Component;
 @EnableEurekaClient
 @EnableHystrix
 @EnableAuthorizationServer
-@EnableResourceServer
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);
