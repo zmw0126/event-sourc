@@ -26,7 +26,7 @@ curl -X DELETE "http://10.11.0.4:20081/v1/applications/alauda/event" \
 -H 'Authorization: Token 3051d656b998939335d0c25c3fb9c9ae0c6a6610' \
 -d '{ }'   
 
-sleep 30
+sleep 10
 
 curl -X POST  \
 -H "Content-Type: multipart/form-data;charset=UTF-8"  \
@@ -37,4 +37,12 @@ curl -X POST  \
 -F "region=alauda17"   \
 -F "space_name=global"   \
 "http://10.11.0.4:20081/v1/applications/alauda"
+
+sleep 3
+
+curl -X PUT "http://10.11.0.4:20081/v1/applications/alauda/event/start" \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Token 3051d656b998939335d0c25c3fb9c9ae0c6a6610' \
+-d '{ }'   
+
 
