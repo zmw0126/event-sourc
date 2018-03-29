@@ -48,7 +48,7 @@ zuul:
       url: http://edge-service:9999
     auth-service:
       path: /user/**
-      url: http://${ALB_IP}:8181/uaa/user
+      url: http://user-service:8181/uaa/user
 security:
   enable-csrf: false
   oauth2:
