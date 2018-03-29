@@ -37,11 +37,21 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
         //         .permitAll()
         //         .and()
         //         .csrf().disable();
+
         http
-				.authorizeRequests()
-				.anyRequest().authenticated()
-			.and()
-				.csrf().disable();
+                .authorizeRequests()
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll()
+                .and()
+                .csrf().disable();
+
     }
 
     @Configuration
