@@ -55,6 +55,7 @@ logging:
         data: DEBUG
         http: DEBUG
 
+server.session.cookie.name: user-service
 ---
 spring:
   profiles: test

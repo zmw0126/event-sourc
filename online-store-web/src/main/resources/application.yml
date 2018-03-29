@@ -79,3 +79,5 @@ logging:
         web: DEBUG
         data: DEBUG
         http: DEBUG
+
+server.session.cookie.name: online-store-web
