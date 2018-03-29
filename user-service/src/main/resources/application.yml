@@ -43,6 +43,11 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://discovery-service:8761/eureka/
+
+logging: 
+  level: 
+    org.springframework.web.client.RestTemplate: DEBUG
+    
 ---
 spring:
   profiles: test
