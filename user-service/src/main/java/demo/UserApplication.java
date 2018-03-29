@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
  */
 @SpringBootApplication
 
-@EnableOAuth2Sso
 @EnableJpaAuditing
 @EnableJpaRepositories
 @EnableEurekaClient

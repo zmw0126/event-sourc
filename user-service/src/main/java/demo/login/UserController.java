@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@EnableOAuth2Sso
 @RestController
 public class UserController {
     @RequestMapping(value="/user", method = RequestMethod.GET, 
