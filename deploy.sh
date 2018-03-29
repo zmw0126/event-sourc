@@ -24,7 +24,9 @@ docker push 10.11.0.8:5000/kbastani-inventory-service
 curl -X DELETE "http://10.11.0.4:20081/v1/applications/alauda/event" \
 -H 'Content-Type: application/json' \
 -H 'Authorization: Token 3051d656b998939335d0c25c3fb9c9ae0c6a6610' \
--d '{ }'   
+-d '{ }' 
+
+echo  
 
 sleep 15
 
@@ -38,6 +40,6 @@ curl -X POST  \
 -F "space_name=global"   \
 "http://10.11.0.4:20081/v1/applications/alauda"
 
-
+echo
 
 
