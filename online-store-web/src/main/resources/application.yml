@@ -70,8 +70,12 @@ eureka:
       defaultZone: http://discovery-service:8761/eureka/
 
 logging: 
-  level: 
-    org.springframework.web: DEBUG
+  level:   
     org:
       springframework:
+        bean: DEBUG
+        context: DEBUG
         security: DEBUG
+        web: DEBUG
+        data: DEBUG
+        http: DEBUG
