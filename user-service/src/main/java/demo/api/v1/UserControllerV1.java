@@ -25,8 +25,7 @@ public class UserControllerV1 {
         this.userService = userService;
     }
 
-    @RequestMapping(path = "/me", method = RequestMethod.GET, 
-    produces = "application/json; charset=utf-8")
+    @RequestMapping(path = "/me")
     public ResponseEntity me(Principal principal) {
         User user = null;
         if(principal != null) {
