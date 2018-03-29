@@ -71,5 +71,7 @@ eureka:
 
 logging: 
   level: 
-    root: DEBUG  
-    org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.web: DEBUG
+    org:
+      springframework:
+        security: DEBUG

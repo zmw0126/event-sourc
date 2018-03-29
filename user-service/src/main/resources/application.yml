@@ -45,9 +45,11 @@ eureka:
       defaultZone: http://discovery-service:8761/eureka/
 
 logging: 
-  level: 
-    root: DEBUG  
-    org.springframework.web.client.RestTemplate: DEBUG
+  level:   
+    org.springframework.web: DEBUG
+    org:
+      springframework:
+        security: DEBUG
 
 ---
 spring:
