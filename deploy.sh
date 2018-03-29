@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+set -x
 
 mvn clean
 
@@ -25,7 +26,7 @@ curl -X DELETE "http://10.11.0.4:20081/v1//applications/alauda/event" \
 -H 'Authorization: Token 3051d656b998939335d0c25c3fb9c9ae0c6a6610' \
 -d '{ }'   
 
-sleep 3000
+sleep 30
 
 curl -X POST "http://10.11.0.4:20081/v1//applications/alauda" \
 -H "Cache-Control: no-cache"\
