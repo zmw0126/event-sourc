@@ -32,7 +32,7 @@ curl -X POST  \
 -H "Content-Type: multipart/form-data;charset=UTF-8"  \
 -H "Cache-Control: no-cache"   \
 -H 'Authorization: Token 3051d656b998939335d0c25c3fb9c9ae0c6a6610' \
--F "services=./docker-compose.alauda.yml" \
+-F "services=@./docker-compose.alauda.yml" \
 -F "app_name=event"   \
 -F "region=alauda17"   \
 -F "space_name=global"   \
@@ -40,7 +40,7 @@ curl -X POST  \
 
 sleep 3
 
-curl -X PUT "http://10.11.0.4:20081/v1/applications/alauda/event/start" \
+curl -v -X PUT "http://10.11.0.4:20081/v1/applications/alauda/event/start" \
 -H 'Content-Type: application/json' \
 -H 'Authorization: Token 3051d656b998939335d0c25c3fb9c9ae0c6a6610' \
 -d '{ }'   
