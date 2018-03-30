@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 
 import demo.address.AddressRepository;
 import demo.catalog.CatalogRepository;
@@ -55,6 +56,11 @@ public class GraphConfiguration { //extends Neo4jConfiguration {
         // return new org.neo4j.ogm.config.Configuration.Builder()
         //     .uri(uri)  //.uri("bolt://localhost")
         //     .build();
+    }
+
+    @Bean
+    public Neo4jTransactionManager transactionManager() throws Exception {
+        return new Neo4jTransactionManager(getSessionFactory());
     }
 
     @Bean
