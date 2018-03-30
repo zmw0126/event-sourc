@@ -36,7 +36,7 @@ neo4j:
   ports:
    - nginx-10-11-0-7:7474:7474/tcp
   environment:
-   - neo4j_AUTH=none
+   - NEO4J_AUTH=none
   net: flannel
   size: L
   alauda_lb: ALB
