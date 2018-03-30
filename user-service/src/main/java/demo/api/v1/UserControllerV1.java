@@ -3,12 +3,12 @@ package demo.api.v1;
 import java.security.Principal;
 import java.util.Optional;
 
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import demo.user.User;
@@ -27,7 +27,9 @@ public class UserControllerV1 {
     @RequestMapping(path = "/me")
     public ResponseEntity me(Principal principal) {
         User user = null;
+        LogFactory.getLog(getClass()).info("before principal");
         if(principal != null) {
+            LogFactory.getLog(getClass()).info("in principal: " + principal.getName());
             user = userService.getUserByUsername(principal.getName());
         }
 
