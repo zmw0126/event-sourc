@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 
 public class UserController {
-    @RequestMapping(value="/user", method = RequestMethod.GET, 
-    produces = "application/json; charset=utf-8")
+    @RequestMapping(value="/user")
     public Principal user(Principal user) {
         return user;
     }
