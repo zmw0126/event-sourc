@@ -25,3 +25,6 @@ spring:
           uri: http://10.11.0.5:9988/root/config-server
           username: root
           password: alauda1234
+
+server.session.cookie.name: config-service
+

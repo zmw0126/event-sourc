@@ -29,6 +29,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
+                .antMatchers("/v1/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

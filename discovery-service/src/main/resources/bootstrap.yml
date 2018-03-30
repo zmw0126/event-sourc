@@ -10,3 +10,5 @@ spring:
   cloud:
     config:
       uri: http://config-service:8888
+
+server.session.cookie.name: discovery-service

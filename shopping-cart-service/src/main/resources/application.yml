@@ -62,6 +62,8 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://discovery-service:8761/eureka/
+
+server.session.cookie.name: shopping-cart-service
 ---
 spring:
   application:

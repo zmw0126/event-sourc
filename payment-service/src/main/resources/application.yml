@@ -31,6 +31,8 @@ spring:
     url: jdbc:mysql://mysql:3306/dev?useSSL=false
     username: root
     password: dbpass
+
+server.session.cookie.name: payment-service
 ---
 spring:
   profiles: test
