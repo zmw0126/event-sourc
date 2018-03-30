@@ -54,6 +54,7 @@ security:
   oauth2:
     resource:
       userInfoUri: http://${ALB_IP}:8181/uaa/user
+      filter-order: 3
     client:
       accessTokenUri: http://${ALB_IP}:8181/uaa/oauth/token
       userAuthorizationUri: http://${ALB_IP}:8181/uaa/oauth/authorize

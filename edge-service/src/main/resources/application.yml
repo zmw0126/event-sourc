@@ -50,6 +50,7 @@ security:
   oauth2:
     resource:
       userInfoUri: http://${ALB_IP}:8181/uaa/user
+      filter-order: 3
   ignored: /catalog/**
 eureka:
   instance:

@@ -36,6 +36,7 @@ security:
   oauth2:
     resource:
       userInfoUri: http://${ALB_IP}:8181/uaa/user
+      filter-order: 3
     client:
       client-id: acme
 eureka:
@@ -46,6 +47,9 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://discovery-service:8761/eureka/
+
+server.session.cookie.name: account-service
+
 ---
 spring:
   application:

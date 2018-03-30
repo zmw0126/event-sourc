@@ -51,6 +51,7 @@ security:
   oauth2:
     resource:
       userInfoUri: http://${ALB_IP}:8181/uaa/user
+      filter-order: 3
     client:
       client-id: acme
   enable-csrf: false
