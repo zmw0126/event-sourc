@@ -46,7 +46,7 @@ class Neo4jProperties {
         Assert.isTrue(this.port > 0, "port is required");
 
         if (!StringUtils.hasText(this.uri)) {
-            this.uri = String.format("http://%s:%s", this.host, this.port);
+            this.uri = String.format("http://%s:%s@%s:%s", this.username, this.password, this.host, this.port);
         }
         LogFactory.getLog(getClass()).info(String.format("host=%s, port=%s, uri=%s", this.host, this.port, this.uri));
     }

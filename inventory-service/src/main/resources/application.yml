@@ -25,6 +25,8 @@ spring:
   neo4j:
     host: neo4j
     port: 7474
+    username: neo4j
+    password: neo4j
 eureka:
   instance:
     prefer-ip-address: true
