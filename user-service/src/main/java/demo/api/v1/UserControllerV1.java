@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import demo.user.User;
 
 @RestController
-@RequestMapping(path = "/v1", method = RequestMethod.GET, 
-produces = "application/json; charset=utf-8")
+@RequestMapping(path = "/v1")
 public class UserControllerV1 {
 
     private UserServiceV1 userService;
