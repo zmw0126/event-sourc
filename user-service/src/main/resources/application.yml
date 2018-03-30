@@ -19,6 +19,7 @@ spring:
     initialize: true
 security.ignored: /resources/**
 ---
+
 server:
   port: 8181
   contextPath: /uaa
@@ -26,6 +27,10 @@ security:
   user:
     password: password
   enable-csrf: false
+  # https://github.com/spring-projects/spring-security-oauth/issues/993
+  oauth2:
+    resource:
+      filter-order: 3
 spring:
   profiles: docker
   datasource:
@@ -33,7 +38,12 @@ spring:
     username: root
     password: dbpass
     initialize: true
+  cloud:
+    bus:
+      trace:
+        enabled: true     # 开启cloud bus的跟踪
 security.ignored: /resources/**
+
 eureka:
   instance:
     prefer-ip-address: true
