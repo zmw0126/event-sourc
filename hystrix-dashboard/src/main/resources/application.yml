@@ -23,7 +23,9 @@ eureka:
            defaultZone: http://eureka-server:8761/eureka/
 
 turbine:
-  appConfig: user-service
+  aggregator:
+    clusterConfig: event
+  appConfig: user-service,CATALOG-SERVICE
 ---
 spring:
   profiles: default
