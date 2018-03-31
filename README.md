@@ -1,3 +1,12 @@
+# Update by wangzheng422
+
+* spring cloud upgrade to Edgware.SR3
+* spring boot upgrade to 1.5.10.RELEASE
+* zipkin added
+* several bugs fixed after upgrade
+* runs on kubernetes
+* runs on alauda EE
+
 # Spring Cloud Event Sourcing Example
 
 This reference application is a Spring Cloud example of using event sourcing in microservices. The project is intended to demonstrate end-to-end best practices for building a _Netflix-like_ microservice architecture using Spring Cloud.
