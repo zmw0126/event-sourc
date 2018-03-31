@@ -10,7 +10,7 @@ spring:
     config:
       uri: http://config-service:8888
 
-server.session.cookie.name: hystrix-service
+server.session.cookie.name: hystrix-dashboard
 
 eureka:
  instance:
