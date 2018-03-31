@@ -75,6 +75,7 @@ public class ShoppingCartServiceV1 {
      * @param cartEvent is the event detailing the action performed by the user
      * @return a flag indicating whether the result was a success
      */
+    @Transactional
     public Boolean addCartEvent(CartEvent cartEvent) {
         User user = getAuthenticatedUser();
         if (user != null) {
@@ -86,6 +87,7 @@ public class ShoppingCartServiceV1 {
         return true;
     }
 
+    @Transactional
     public Boolean addCartEvent(CartEvent cartEvent, User user) {
         if (user != null) {
             cartEvent.setUserId(user.getId());
@@ -121,6 +123,7 @@ public class ShoppingCartServiceV1 {
      * @return a shopping cart representing the aggregate state of the user's cart
      * @throws Exception
      */
+    @Transactional
     public ShoppingCart aggregateCartEvents(User user, Catalog catalog) throws Exception {
         Flux<CartEvent> cartEvents =
                 Flux.fromStream(cartEventRepository.getCartEventStreamByUser(user.getId()));
@@ -141,6 +144,7 @@ public class ShoppingCartServiceV1 {
      *
      * @return the result of the checkout operation
      */
+    @Transactional
     public CheckoutResult checkout() throws Exception {
         CheckoutResult checkoutResult = new CheckoutResult();
 
@@ -202,6 +206,7 @@ public class ShoppingCartServiceV1 {
         return checkoutResult;
     }
 
+    @Transactional
     public Boolean checkAvailableInventory(CheckoutResult checkoutResult, ShoppingCart currentCart,
                                            Map<String, Long> inventoryItems) {
         Boolean hasInventory = true;
