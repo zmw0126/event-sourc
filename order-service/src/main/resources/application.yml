@@ -38,6 +38,12 @@ spring:
     date-format: "YYYY-MM-dd"
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: true
+  sleuth:
+    sampler:
+      percentage: 1.0
+    traceId128: true
+  zipkin:
+    base-url: http://zipkin:9411/
 security:
   oauth2:
     resource:

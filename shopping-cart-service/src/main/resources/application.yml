@@ -47,6 +47,12 @@ spring:
     url: jdbc:mysql://mysql:3306/dev
     username: root
     password: dbpass
+  sleuth:
+    sampler:
+      percentage: 1.0
+    traceId128: true
+  zipkin:
+    base-url: http://zipkin:9411/
 security:
   oauth2:
     resource:
@@ -63,7 +69,7 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://discovery-service:8761/eureka/
-
+  
 server.session.cookie.name: shopping-cart-service
 ---
 spring:

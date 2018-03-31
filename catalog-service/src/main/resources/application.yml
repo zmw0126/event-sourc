@@ -12,6 +12,7 @@ spring:
     username: root
     password: dbpass
     initialize: false
+  
 eureka:
   instance:
     prefer-ip-address: true
@@ -31,6 +32,12 @@ spring:
     username: root
     password: dbpass
     initialize: true
+  sleuth:
+    sampler:
+      percentage: 1.0
+    traceId128: true
+  zipkin:
+    base-url: http://zipkin:9411/
 eureka:
   instance:
     prefer-ip-address: true

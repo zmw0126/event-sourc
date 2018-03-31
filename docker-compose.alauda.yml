@@ -20,6 +20,14 @@ hystrix-dashboard:
   size: L
   alauda_lb: ALB
 
+zipkin:
+  image: openzipkin/zipkin:2
+  ports:
+    - "nginx-10-11-0-7:9411:9411/tcp"
+  net: flannel
+  size: L
+  alauda_lb: ALB
+
 mysql:
   image: mysql:5.7
   ports:

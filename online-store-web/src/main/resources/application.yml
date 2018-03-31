@@ -40,6 +40,12 @@ spring:
   profiles: docker
   application:
     name: online-store-web
+  sleuth:
+    sampler:
+      percentage: 1.0
+    traceId128: true
+  zipkin:
+    base-url: http://zipkin:9411/
 zuul:
   ignored-services: '*'
   routes:

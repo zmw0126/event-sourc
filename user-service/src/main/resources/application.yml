@@ -42,6 +42,12 @@ spring:
     bus:
       trace:
         enabled: true     # 开启cloud bus的跟踪
+  sleuth:
+    sampler:
+      percentage: 1.0
+    traceId128: true
+  zipkin:
+    base-url: http://zipkin:9411/
 security.ignored: /resources/**
 
 eureka:
