@@ -25,7 +25,7 @@ public class CatalogServiceV1 {
         this.restTemplate = restTemplate;
     }
 
-    @HystrixCommand
+    @HystrixCommand(groupKey = "helloGroup", fallbackMethod = "fallBackCall_getCatalog")
     public Catalog getCatalog() {
         Catalog catalog;
 
@@ -41,9 +41,17 @@ public class CatalogServiceV1 {
         return catalog;
     }
 
-    @HystrixCommand
+    public Catalog fallBackCall_getCatalog(){
+        return null;
+    }
+
+    @HystrixCommand(groupKey = "helloGroup", fallbackMethod = "fallBackCall_getProduct")
     public Product getProduct(String productId) {
         return restTemplate.getForObject(String.format("http://inventory-service/v1/products/%s",
                 productId), Product.class);
+    }
+
+    public Product fallBackCall_getProduct() {
+        return null;
     }
 }

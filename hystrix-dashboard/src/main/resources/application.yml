@@ -12,7 +12,18 @@ spring:
 
 server.session.cookie.name: hystrix-service
 
+eureka:
+ instance:
+   hostname: hystrix-dashboard
+   prefer-ip-address: true
+ client:
+   registerWithEureka: true
+   fetchRegistry: true
+   serviceUrl:
+           defaultZone: http://eureka-server:8761/eureka/
 
+turbine:
+  appConfig: user-service
 ---
 spring:
   profiles: default
