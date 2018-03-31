@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import demo.user.User;
@@ -41,7 +42,7 @@ public class UserServiceV1 {
         return userRepository.findUserByUsername(username);
     }
 
-    public String fallBackCall() {
-        return "FAILED UserServiceV1.getUserByUsername CALL! - FALLING BACK";
+    public User fallBackCall(String username) {
+        throw new UsernameNotFoundException("FAILED UserServiceV1.getUserByUsername CALL! - FALLING BACK");
     }
 }
