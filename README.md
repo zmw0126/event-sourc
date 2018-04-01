@@ -3,6 +3,7 @@
 * spring cloud upgrade to Edgware.SR3
 * spring boot upgrade to 1.5.10.RELEASE
 * zipkin added
+* turbin works now
 * several bugs fixed after upgrade
 * runs on kubernetes
 * runs on alauda EE
