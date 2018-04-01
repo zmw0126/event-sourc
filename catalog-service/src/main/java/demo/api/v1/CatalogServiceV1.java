@@ -51,7 +51,7 @@ public class CatalogServiceV1 {
                 productId), Product.class);
     }
 
-    public Product fallBackCall_getProduct() {
+    public Product fallBackCall_getProduct(String productId) {
         return null;
     }
 }
