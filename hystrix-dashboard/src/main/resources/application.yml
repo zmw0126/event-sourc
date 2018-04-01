@@ -24,6 +24,8 @@ eureka:
 
 turbine:
   appConfig: user-service,CATALOG-SERVICE
+  clusterNameExpression: new String('default')
+  
 ---
 spring:
   profiles: default
