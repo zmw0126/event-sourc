@@ -3,6 +3,8 @@ config-service:
   environment:
    - SPRING_PROFILES_ACTIVE=docker
    - ALB_IP=10.11.0.7
+   - GIT_HOST=10.11.0.5:9988
+   
   ports:
    - nginx-10-11-0-7:8888:8888/tcp
   net: flannel
