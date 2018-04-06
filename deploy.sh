@@ -7,7 +7,7 @@ export REGISTRY=10.11.0.6:5000
 
 mvn clean
 
-mvn package -Dmaven.test.skip=true
+mvn package -D docker.image.prefix=${REGISTRY}-Dmaven.test.skip=true 
 
 docker push ${REGISTRY}/kbastani-hystrix-dashboard       
 docker push ${REGISTRY}/kbastani-shopping-cart-service   
