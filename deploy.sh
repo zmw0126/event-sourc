@@ -51,7 +51,7 @@ curl -X POST  \
 -H "Cache-Control: no-cache"   \
 -H "Authorization: Token ${AUTH_TOKEN}" \
 -F "services=@./k8s-tmp.yaml" \
--F "app_name=event_source"   \
+-F "app_name=eventsource"   \
 -F "region=${REGION}"   \
 -F "space_name=${SPACE_NAME}"   \
 "http://${ONE_BOX}:20081/v1/applications/alauda"
