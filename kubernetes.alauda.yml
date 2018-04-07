@@ -3,7 +3,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: config-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -37,7 +37,7 @@ metadata:
   labels:
     service.alauda.io/name: config-service
   name: config-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 8888
@@ -54,7 +54,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: hystrix-dashboard
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -86,7 +86,7 @@ metadata:
   labels:
     service.alauda.io/name: hystrix-dashboard
   name: hystrix-dashboard
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 6161
@@ -102,7 +102,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: zipkin
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -134,7 +134,7 @@ metadata:
   labels:
     service.alauda.io/name: zipkin
   name: zipkin
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 9411
@@ -150,7 +150,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: mysql
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -186,7 +186,7 @@ metadata:
   labels:
     service.alauda.io/name: mysql
   name: mysql
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 3306
@@ -202,7 +202,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: neo4j
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -236,7 +236,7 @@ metadata:
   labels:
     service.alauda.io/name: neo4j
   name: neo4j
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 7474
@@ -252,7 +252,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: mongo
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -284,7 +284,7 @@ metadata:
   labels:
     service.alauda.io/name: mongo
   name: mongo
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 27017
@@ -300,7 +300,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: redis
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -332,7 +332,7 @@ metadata:
   labels:
     service.alauda.io/name: redis
   name: redis
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 6379
@@ -348,7 +348,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: user-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -380,7 +380,7 @@ metadata:
   labels:
     service.alauda.io/name: user-service
   name: user-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 8181
@@ -396,7 +396,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: discovery-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -428,7 +428,7 @@ metadata:
   labels:
     service.alauda.io/name: discovery-service
   name: discovery-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 8761
@@ -444,7 +444,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: edge-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -476,7 +476,7 @@ metadata:
   labels:
     service.alauda.io/name: edge-service
   name: edge-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 9999
@@ -492,7 +492,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: account-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -523,7 +523,7 @@ metadata:
   labels:
     service.alauda.io/name: account-service
   name: account-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 8080
@@ -539,7 +539,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: inventory-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -570,7 +570,7 @@ metadata:
   labels:
     service.alauda.io/name: inventory-service
   name: inventory-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 8080
@@ -586,7 +586,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: order-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -617,54 +617,7 @@ metadata:
   labels:
     service.alauda.io/name: order-service
   name: order-service
-  namespace: alauda01
-spec:
-  ports:
-  - port: 8080
-    protocol: TCP
-    targetPort: 8080
-  selector:
-    service.alauda.io/name: order-service
-  sessionAffinity: None
-  type: ClusterIP
-
----
-apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: order-service
-  namespace: alauda01
-spec:
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        service.alauda.io/name: order-service
-    spec:
-      containers:
-      - env:
-        - name: SPRING_PROFILES_ACTIVE
-          value: docker
-        - name: ALB_IP
-          value: {{ALB_IP}}
-        name: order-service
-        image: {{REGISTRY}}/kbastani-order-service
-        imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: "1"
-            memory: 2G
----
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-  labels:
-    service.alauda.io/name: order-service
-  name: order-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 8080
@@ -680,7 +633,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: catalog-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -711,7 +664,7 @@ metadata:
   labels:
     service.alauda.io/name: catalog-service
   name: catalog-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 8080
@@ -727,7 +680,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: shopping-cart-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -758,7 +711,7 @@ metadata:
   labels:
     service.alauda.io/name: shopping-cart-service
   name: shopping-cart-service
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 8080
@@ -774,7 +727,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: online-store-web
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   replicas: 1
   strategy:
@@ -790,7 +743,7 @@ spec:
           value: docker
         - name: ALB_IP
           value: {{ALB_IP}}
-        name:online-store-web
+        name: online-store-web
         image: {{REGISTRY}}/kbastani-online-store-web
         imagePullPolicy: Always
         resources:
@@ -804,9 +757,9 @@ metadata:
   annotations:
     loadbalancer.alauda.io/bind: '[{"container_port":8787,"protocol":"tcp","name":"{{NGINX}}","port":8787}]'
   labels:
-    service.alauda.io/name:online-store-web
+    service.alauda.io/name: online-store-web
   name: online-store-web
-  namespace: alauda01
+  namespace: {{REGION}}
 spec:
   ports:
   - port: 8787

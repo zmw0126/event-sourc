@@ -34,6 +34,7 @@ cat kubernetes.alauda.yml | \
 sed "s/{{ALB_IP}}/${ALB_IP}/g" | \
 sed "s/{{GIT_HOST}}/${GIT_HOST}/g" | \
 sed "s/{{REGISTRY}}/${REGISTRY}/g" | \
+sed "s/{{REGION}}/${REGION}/g" | \
 sed "s/{{NGINX}}/${NGINX}/g"  \
 > k8s-tmp.yaml
 
@@ -51,7 +52,7 @@ curl -X POST  \
 -H "Cache-Control: no-cache"   \
 -H "Authorization: Token ${AUTH_TOKEN}" \
 -F "services=@./k8s-tmp.yaml" \
--F "app_name=eventsource"   \
+-F "app_name=event_source"   \
 -F "region=${REGION}"   \
 -F "space_name=${SPACE_NAME}"   \
 "http://${ONE_BOX}:20081/v1/applications/alauda"
