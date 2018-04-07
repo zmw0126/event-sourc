@@ -3,11 +3,14 @@
 set -e
 set -x
 
+export ONE_BOX=10.11.0.4
+export REGION=alauda01
+export SPACE_NAME=global
 export REGISTRY=10.11.0.6:5000
 export ALB_IP=10.11.0.6
 export GIT_HOST=10.11.0.5:9988
 export NGINX=nginx-10-11-0-6
-export AUTH_TOKEN=
+export AUTH_TOKEN=97898f42b8c95098df3f82037f43bf13fa33ff53
 
 mvn clean
 
@@ -27,25 +30,32 @@ docker push ${REGISTRY}/kbastani-account-service
 docker push ${REGISTRY}/kbastani-order-service                
 docker push ${REGISTRY}/kbastani-inventory-service  
 
-# curl -X DELETE "http://10.11.0.4:20081/v1/applications/alauda/event" \
-# -H 'Content-Type: application/json' \
-# -H 'Authorization: Token 3051d656b998939335d0c25c3fb9c9ae0c6a6610' \
-# -d '{ }' 
+cat kubernetes.alauda.yml | \
+sed "s/{{ALB_IP}}/${ALB_IP}/g" | \
+sed "s/{{GIT_HOST}}/${GIT_HOST}/g" | \
+sed "s/{{REGISTRY}}/${REGISTRY}/g" | \
+sed "s/{{NGINX}}/${NGINX}/g"  \
+> k8s-tmp.yaml
 
-# echo  
+curl -X DELETE "http://${ONE_BOX}:20081/v1/applications/alauda/event" \
+-H 'Content-Type: application/json' \
+-H "Authorization: Token ${AUTH_TOKEN}" \
+-d '{ }' 
 
-# sleep 15
+echo  
 
-# curl -X POST  \
-# -H "Content-Type: multipart/form-data;charset=UTF-8"  \
-# -H "Cache-Control: no-cache"   \
-# -H 'Authorization: Token 3051d656b998939335d0c25c3fb9c9ae0c6a6610' \
-# -F "services=@./docker-compose.alauda.yml" \
-# -F "app_name=event"   \
-# -F "region=alauda17"   \
-# -F "space_name=global"   \
-# "http://10.11.0.4:20081/v1/applications/alauda"
+sleep 15
 
-# echo
+curl -X POST  \
+-H "Content-Type: multipart/form-data;charset=UTF-8"  \
+-H "Cache-Control: no-cache"   \
+-H "Authorization: Token ${AUTH_TOKEN}" \
+-F "services=@./k8s-tmp.yaml" \
+-F "app_name=event_source"   \
+-F "region=${REGION}"   \
+-F "space_name=${SPACE_NAME}"   \
+"http://${ONE_BOX}:20081/v1/applications/alauda"
+
+echo
 
 
