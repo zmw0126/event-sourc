@@ -73,8 +73,6 @@ eureka:
 server.session.cookie.name: shopping-cart-service
 ---
 spring:
-  application:
-    name: account-service
   profiles: test
   jpa:
     show_sql: false

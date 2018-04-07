@@ -83,3 +83,5 @@ buildNumber.properties
 **/.vscode
 **/.sts4-cache
 **/.classpath
+
+k8s-tmp.yaml

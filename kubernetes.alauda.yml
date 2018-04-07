@@ -1,0 +1,820 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: config-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: config-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        - name: GIT_HOST
+          value: {{GIT_HOST}}
+        name: config-service
+        image: {{REGISTRY}}/kbastani-config-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":8888,"protocol":"tcp","name":"{{NGINX}}","port":8888}]'
+  labels:
+    service.alauda.io/name: config-service
+  name: config-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8888
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    service.alauda.io/name: config-service
+  sessionAffinity: None
+  type: ClusterIP
+
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hystrix-dashboard
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: hystrix-dashboard
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: hystrix-dashboard
+        image: {{REGISTRY}}/kbastani-hystrix-dashboard
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":6161,"protocol":"tcp","name":"{{NGINX}}","port":6161}]'
+  labels:
+    service.alauda.io/name: hystrix-dashboard
+  name: hystrix-dashboard
+  namespace: alauda01
+spec:
+  ports:
+  - port: 6161
+    protocol: TCP
+    targetPort: 6161
+  selector:
+    service.alauda.io/name: hystrix-dashboard
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: zipkin
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: zipkin
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: zipkin
+        image: openzipkin/zipkin:2
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":9411,"protocol":"tcp","name":"{{NGINX}}","port":9411}]'
+  labels:
+    service.alauda.io/name: zipkin
+  name: zipkin
+  namespace: alauda01
+spec:
+  ports:
+  - port: 9411
+    protocol: TCP
+    targetPort: 9411
+  selector:
+    service.alauda.io/name: zipkin
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: mysql
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        - name: MYSQL_ROOT_PASSWORD
+          value: dbpass
+        - name: MYSQL_DATABASE
+          value: dev
+        name: mysql
+        image: mysql:5.7
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":3306,"protocol":"tcp","name":"{{NGINX}}","port":3306}]'
+  labels:
+    service.alauda.io/name: mysql
+  name: mysql
+  namespace: alauda01
+spec:
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    service.alauda.io/name: mysql
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: neo4j
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: neo4j
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        - name: NEO4J_AUTH
+          value: none
+        name: neo4j
+        image: neo4j:3.3
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":7474,"protocol":"tcp","name":"{{NGINX}}","port":7474}]'
+  labels:
+    service.alauda.io/name: neo4j
+  name: neo4j
+  namespace: alauda01
+spec:
+  ports:
+  - port: 7474
+    protocol: TCP
+    targetPort: 7474
+  selector:
+    service.alauda.io/name: neo4j
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mongo
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: mongo
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: mongo
+        image: mongo:3.3
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":27017,"protocol":"tcp","name":"{{NGINX}}","port":27017}]'
+  labels:
+    service.alauda.io/name: mongo
+  name: mongo
+  namespace: alauda01
+spec:
+  ports:
+  - port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    service.alauda.io/name: mongo
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: redis
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: redis
+        image: redis:3.0
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":6379,"protocol":"tcp","name":"{{NGINX}}","port":6379}]'
+  labels:
+    service.alauda.io/name: redis
+  name: redis
+  namespace: alauda01
+spec:
+  ports:
+  - port: 6379
+    protocol: TCP
+    targetPort: 6379
+  selector:
+    service.alauda.io/name: redis
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: user-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: user-service
+        image: {{REGISTRY}}/kbastani-user-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":8181,"protocol":"tcp","name":"{{NGINX}}","port":8181}]'
+  labels:
+    service.alauda.io/name: user-service
+  name: user-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8181
+    protocol: TCP
+    targetPort: 8181
+  selector:
+    service.alauda.io/name: user-service
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: discovery-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: discovery-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: discovery-service
+        image: {{REGISTRY}}/kbastani-discovery-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":8761,"protocol":"tcp","name":"{{NGINX}}","port":8761}]'
+  labels:
+    service.alauda.io/name: discovery-service
+  name: discovery-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8761
+    protocol: TCP
+    targetPort: 8761
+  selector:
+    service.alauda.io/name: discovery-service
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: edge-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: edge-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: edge-service
+        image: {{REGISTRY}}/kbastani-edge-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":9999,"protocol":"tcp","name":"{{NGINX}}","port":9999}]'
+  labels:
+    service.alauda.io/name: edge-service
+  name: edge-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 9999
+    protocol: TCP
+    targetPort: 9999
+  selector:
+    service.alauda.io/name: edge-service
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: account-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: account-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: account-service
+        image: {{REGISTRY}}/kbastani-account-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    service.alauda.io/name: account-service
+  name: account-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    service.alauda.io/name: account-service
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: inventory-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: inventory-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: inventory-service
+        image: {{REGISTRY}}/kbastani-inventory-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    service.alauda.io/name: inventory-service
+  name: inventory-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    service.alauda.io/name: inventory-service
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: order-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: order-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: order-service
+        image: {{REGISTRY}}/kbastani-order-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    service.alauda.io/name: order-service
+  name: order-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    service.alauda.io/name: order-service
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: order-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: order-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: order-service
+        image: {{REGISTRY}}/kbastani-order-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    service.alauda.io/name: order-service
+  name: order-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    service.alauda.io/name: order-service
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: catalog-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: catalog-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: catalog-service
+        image: {{REGISTRY}}/kbastani-catalog-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    service.alauda.io/name: catalog-service
+  name: catalog-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    service.alauda.io/name: catalog-service
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: shopping-cart-service
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: shopping-cart-service
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name: shopping-cart-service
+        image: {{REGISTRY}}/kbastani-shopping-cart-service
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    service.alauda.io/name: shopping-cart-service
+  name: shopping-cart-service
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    service.alauda.io/name: shopping-cart-service
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: online-store-web
+  namespace: alauda01
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service.alauda.io/name: online-store-web
+    spec:
+      containers:
+      - env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: ALB_IP
+          value: {{ALB_IP}}
+        name:online-store-web
+        image: {{REGISTRY}}/kbastani-online-store-web
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1"
+            memory: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    loadbalancer.alauda.io/bind: '[{"container_port":8787,"protocol":"tcp","name":"{{NGINX}}","port":8787}]'
+  labels:
+    service.alauda.io/name:online-store-web
+  name: online-store-web
+  namespace: alauda01
+spec:
+  ports:
+  - port: 8787
+    protocol: TCP
+    targetPort: 8787
+  selector:
+    service.alauda.io/name: online-store-web
+  sessionAffinity: None
+  type: ClusterIP
+
+

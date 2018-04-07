@@ -4,6 +4,10 @@ set -e
 set -x
 
 export REGISTRY=10.11.0.6:5000
+export ALB_IP=10.11.0.6
+export GIT_HOST=10.11.0.5:9988
+export NGINX=nginx-10-11-0-6
+export AUTH_TOKEN=
 
 mvn clean
 
