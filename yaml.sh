@@ -12,23 +12,6 @@ export GIT_HOST=10.11.0.5:9988
 export NGINX=nginx-10-11-0-6
 export AUTH_TOKEN=97898f42b8c95098df3f82037f43bf13fa33ff53
 
-mvn clean
-
-mvn package -D docker.image.prefix=${REGISTRY}  -D maven.test.skip=true 
-
-docker push ${REGISTRY}/kbastani-hystrix-dashboard       
-docker push ${REGISTRY}/kbastani-shopping-cart-service   
-docker push ${REGISTRY}/kbastani-edge-service            
-docker push ${REGISTRY}/kbastani-catalog-service         
-docker push ${REGISTRY}/kbastani-catalog-service             
-docker push ${REGISTRY}/kbastani-online-store-web             
-docker push ${REGISTRY}/kbastani-discovery-service            
-docker push ${REGISTRY}/kbastani-config-service               
-docker push ${REGISTRY}/kbastani-payment-service              
-docker push ${REGISTRY}/kbastani-user-service                 
-docker push ${REGISTRY}/kbastani-account-service              
-docker push ${REGISTRY}/kbastani-order-service                
-docker push ${REGISTRY}/kbastani-inventory-service  
 
 cat kubernetes.alauda.yml | \
 sed "s/{{ALB_IP}}/${ALB_IP}/g" | \
