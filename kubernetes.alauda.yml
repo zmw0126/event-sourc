@@ -182,7 +182,6 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    loadbalancer.alauda.io/bind: '[{"container_port":3306,"protocol":"tcp","name":"{{NGINX}}","port":3306}]'
   labels:
     service.alauda.io/name: mysql
   name: mysql
@@ -232,7 +231,6 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    loadbalancer.alauda.io/bind: '[{"container_port":7474,"protocol":"tcp","name":"{{NGINX}}","port":7474}]'
   labels:
     service.alauda.io/name: neo4j
   name: neo4j
@@ -280,7 +278,6 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    loadbalancer.alauda.io/bind: '[{"container_port":27017,"protocol":"tcp","name":"{{NGINX}}","port":27017}]'
   labels:
     service.alauda.io/name: mongo
   name: mongo
@@ -327,8 +324,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    loadbalancer.alauda.io/bind: '[{"container_port":6379,"protocol":"tcp","name":"{{NGINX}}","port":6379}]'
   labels:
     service.alauda.io/name: redis
   name: redis
