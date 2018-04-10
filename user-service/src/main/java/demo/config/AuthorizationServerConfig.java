@@ -31,7 +31,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/v1/**").permitAll()
                 .antMatchers("/hystrix.stream").permitAll()
-                .antMatchers("/swagger-ui.html**").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
